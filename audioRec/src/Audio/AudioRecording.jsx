@@ -45,6 +45,7 @@ const AudioRecording = () => {
             .getMp3()
             .then(async ([buffer, blob]) => {
                 const blobURL = URL.createObjectURL(blob);
+                dispatch(setOriginalAudio(blobURL));
                 const file = new File(buffer, 'audio.mp3', {
                     type: blob.type,
                     lastModified: Date.now()
@@ -55,7 +56,7 @@ const AudioRecording = () => {
                 baseAudio = baseAudio.replace(/^data:audio\/mp3;base64,/, ''); // Remove the data URI prefix if present
 
                 setAudioDataState(baseAudio)
-                dispatch(setOriginalAudio(baseAudio));
+                // dispatch(setOriginalAudio(baseAudio));
                 // Post the correctly encoded audio data to the server
                 // postAudioData(baseAudio);
 

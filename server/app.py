@@ -25,7 +25,7 @@ def create_audio():
         audio_bytes = base64.b64decode(base_audio)  # Use the imported base64 module
 
         # Save the audio data to an MP3 file
-        with open('output.mp3', 'wb') as audio_file:
+        with open('./server/output.mp3', 'wb') as audio_file:
             audio_file.write(audio_bytes)
 
         # Respond with a success message
@@ -37,7 +37,7 @@ def create_audio():
 @app.route('/result', methods=['GET'])
 def send_result():
     # Read audio file as binary data
-    with open('D:\\SIH\\untitled3\\server\\output.mp3', 'rb') as audio_file:
+    with open('./server/output.mp3', 'rb') as audio_file:
         audio_binary_data = audio_file.read()
 
     # Encode binary data to base64

@@ -2,9 +2,12 @@ import './EnglishOutput.css'
 import {Button, Paper} from "@mui/material";
 import React, {useState} from "react";
 import axios from "axios";
+import {useDispatch} from "react-redux";
+import {setEnglishAudio} from "../features/audioSlice";
 
 const EnglishOutput = () => {
-    const [englishAudio, setEnglishAudio] = useState(null)
+    const [englishAudioState, setEnglishAudioState] = useState(null)
+    const dispatch = useDispatch()
 
     const getEnglishTranslation = async () => {
         try {
@@ -12,7 +15,8 @@ const EnglishOutput = () => {
             const base64Audio = response.data.translated_audio;
             const blob = base64toBlob(base64Audio, "audio/wav");
             const blobUrl = URL.createObjectURL(blob);
-            setEnglishAudio(blobUrl);
+            setEnglishAudioState(blobUrl);
+            dispatch(setEnglishAudio(blobUrl))
         } catch (e) {
             console.log("Error while fetching results: ", e);
         }
@@ -45,7 +49,7 @@ const EnglishOutput = () => {
             <Paper elevation={3} className={"paper"}>
                 Here will be the output
                 <Button onClick={getEnglishTranslation}>Get Translation</Button>
-                <audio src={englishAudio} controls="controls" className={"controls"}/>
+                <audio src={englishAudioState} controls="controls" className={"controls"}/>
             </Paper>
         </div>
     );
